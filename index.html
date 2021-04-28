@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         .tabs-wrapper.vertical {
+            margin-bottom: 10px;
+        }
+
+        .tabs-wrapper.vertical:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .tabs-wrapper.vertical .headings {
+            margin: 0;
+            padding: 0;
+            float: left;
+            list-style: none;
+            width: 100%;
+            float: left;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .tabs-wrapper.vertical .headings {
+                width: 30%;
+            }
+        }
+
+        .tabs-wrapper.vertical .headings>li {
+            margin: 0;
+        }
+
+        .tabs-wrapper.vertical .headings>li:hover .trigger .bg,
+        .tabs-wrapper.vertical .headings>li:focus .trigger .bg,
+        .tabs-wrapper.vertical .headings>li.active .trigger .bg {
+            opacity: 1;
+        }
+
+        .tabs-wrapper.vertical .headings .trigger {
+            margin: 0;
+            cursor: pointer;
+            padding: 20px 30px;
+            position: relative;
+            z-index: 0;
+            float: left;
+            width: 100%;
+        }
+
+        .tabs-wrapper.vertical .headings .trigger a,
+        .tabs-wrapper.vertical .headings .trigger a:link,
+        .tabs-wrapper.vertical .headings .trigger a:visited,
+        .tabs-wrapper.vertical .headings .trigger a:hover {
+            color: #ccc;
+        }
+
+        .tabs-wrapper.vertical .headings .trigger .bg {
+            z-index: -1;
+            opacity: 0.5;
+            background: #ccc;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+        }
+
+        .tabs-wrapper.vertical .tabs.content {
+            float: left;
+            width: 100%;
+            overflow: auto;
+            padding: 20px;
+            margin: 0;
+            list-style: none;
+        }
+
+        @media only screen and (min-width: 768px) {
+            .tabs-wrapper.vertical .tabs.content {
+                width: 70%;
+                padding: 0 20px;
+            }
+        }
+
+        .tabs-wrapper.vertical .tabs.content>li {
+            display: none;
+        }
+
+        .tabs-wrapper.vertical .tabs.content>li.active {
+            display: block;
+        }
+
+        .tabs-wrapper.horizontal {
+            overflow: hidden;
+        }
+
+        .tabs-wrapper.horizontal .headings {
+            margin: 0;
+            padding: 0;
+            float: left;
+            list-style: none;
+            width: 100%;
+        }
+
+        .tabs-wrapper.horizontal .headings>li {
+            margin: 0;
+        }
+
+        .tabs-wrapper.horizontal .headings>li:hover .trigger .bg,
+        .tabs-wrapper.horizontal .headings>li:focus .trigger .bg,
+        .tabs-wrapper.horizontal .headings>li.active .trigger .bg {
+            opacity: 1;
+        }
+
+        .tabs-wrapper.horizontal .headings .trigger {
+            margin: 0;
+            cursor: pointer;
+            padding: 20px 30px;
+            position: relative;
+            z-index: 0;
+            float: left;
+        }
+
+        .tabs-wrapper.horizontal .headings .trigger a,
+        .tabs-wrapper.horizontal .headings .trigger a:link,
+        .tabs-wrapper.horizontal .headings .trigger a:visited,
+        .tabs-wrapper.horizontal .headings .trigger a:hover {
+            color: #ccc;
+        }
+
+        .tabs-wrapper.horizontal .headings .trigger .bg {
+            z-index: -1;
+            opacity: 0.5;
+            background: #ccc;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+        }
+
+        .tabs-wrapper.horizontal .tabs.content {
+            clear: both;
+            float: left;
+            width: 100%;
+            overflow: auto;
+            padding: 20px 10px;
+            margin: 0;
+            list-style: none;
+        }
+
+        .tabs-wrapper.horizontal .tabs.content:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .tabs-wrapper.horizontal .tabs.content>li {
+            display: none;
+        }
+
+        .tabs-wrapper.horizontal .tabs.content>li.active {
+            display: block;
+        }
+
+        .accordion-wrapper {
+            margin-bottom: 10px;
+        }
+
+        .accordion-wrapper:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .accordion-wrapper ul.accordion {
+            margin: 0;
+            padding: 0;
+            float: left;
+            list-style: none;
+            width: 100%;
+            float: left;
+        }
+
+        .accordion-wrapper ul.accordion>li {
+            margin: 0;
+        }
+
+        .accordion-wrapper ul.accordion .trigger {
+            margin: 0;
+            cursor: pointer;
+            padding: 20px 30px;
+            position: relative;
+            z-index: 0;
+        }
+
+        .accordion-wrapper ul.accordion .trigger a,
+        .accordion-wrapper ul.accordion .trigger a:link,
+        .accordion-wrapper ul.accordion .trigger a:visited,
+        .accordion-wrapper ul.accordion .trigger a:hover {
+            color: #ccc;
+        }
+
+        .accordion-wrapper ul.accordion .trigger .bg {
+            z-index: -1;
+            opacity: 0.5;
+            background: #ccc;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            position: absolute;
+        }
+
+        .accordion-wrapper ul.accordion .trigger .bg:hover {
+            opacity: 1;
+        }
+
+        .accordion-wrapper ul.accordion li.active .trigger .bg {
+            opacity: 1;
+        }
+
+        .accordion-wrapper ul.accordion .content {
+            display: none;
+            padding: 20px 20px 0;
+            margin: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+
+<body>
+    <!-- <ul class="tabs-horizontal headings">
+        <li>Tab 1 title</li>
+        <li>Tab 2 title</li>
+        <li>Tab 3 title</li>
+        <li>Tab 4 title</li>
+        <li>Tab 5 title</li>
+    </ul>
+    <ul class="tabs content">
+        <li>
+            <p>Content for tab 1...</p>
+        </li>
+        <li>
+            <p>Content for tab 2...</p>
+        </li>
+        <li>
+            <p>Content for tab 3...</p>
+        </li>
+        <li>
+            <p>Content for tab 4...</p>
+        </li>
+        <li>
+            <p>Content for tab 5...</p>
+        </li>
+    </ul>
+
+    <ul class="tabs-vertical headings">
+        <li>Tab 1 title</li>
+        <li>Tab 2 title</li>
+        <li>Tab 3 title</li>
+        <li>Tab 4 title</li>
+        <li>Tab 5 title</li>
+    </ul>
+    <ul class="tabs content">
+        <li>
+            <p>Content for tab 1...</p>
+        </li>
+        <li>
+            <p>Content for tab 2...</p>
+        </li>
+        <li>
+            <p>Content for tab 3...</p>
+        </li>
+        <li>
+            <p>Content for tab 4...</p>
+        </li>
+        <li>
+            <p>Content for tab 5...</p>
+        </li>
+    </ul> -->
+
+    <div id="accordion">
+        <h3>Section 1</h3>
+        <div>
+          <p>
+          Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+          ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+          amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+          odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+          </p>
+        </div>
+        <h3>Section 2</h3>
+        <div>
+          <p>
+          Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+          purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+          velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+          suscipit faucibus urna.
+          </p>
+        </div>
+        <h3>Section 3</h3>
+        <div>
+          <p>
+          Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+          Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+          ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+          lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+          </p>
+          <ul>
+            <li>List item one</li>
+            <li>List item two</li>
+            <li>List item three</li>
+          </ul>
+        </div>
+        <h3>Section 4</h3>
+        <div>
+          <p>
+          Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+          et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+          faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+          mauris vel est.
+          </p>
+          <p>
+          Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+          Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+          inceptos himenaeos.
+          </p>
+        </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        // $('.tabs-horizontal.headings').each(function () {
+        //        return $(this).add($(this).next('.tabs.content')).wrapAll("<div class='tabs-wrapper horizontal'/>");
+        //    });
+        //    $('.tabs-horizontal.headings li').wrapInner('<div class="trigger"></div>');
+        //    $('.tabs-horizontal.headings li .trigger').append('<div class="bg"></div>');
+        //    $('.tabs-wrapper.horizontal').each(function () {
+        //        var tab_content, tab_headings;
+        //        tab_headings = $(this).find('.headings > li');
+        //        tab_content = $(this).find('.tabs.content > li');
+        //        tab_content.first().addClass('active');
+        //        tab_headings.first().addClass('active');
+        //        return tab_headings.on('click', function () {
+        //            tab_headings.removeClass('active');
+        //            tab_content.removeClass('active');
+        //            $(this).addClass('active');
+        //            return tab_content.eq($(this).index()).addClass('active');
+        //        });
+        //    });
+
+        //    $('.tabs-vertical.headings').each(function () {
+        //        return $(this).add($(this).next('.tabs.content')).wrapAll("<div class='tabs-wrapper vertical'/>");
+        //    });
+        //    $('.tabs-vertical.headings li').wrapInner('<div class="trigger"></div>');
+        //    $('.tabs-vertical.headings li .trigger').append('<div class="bg"></div>');
+        //    $('.tabs-wrapper.vertical').each(function () {
+        //        var tab_content, tab_headings;
+        //        tab_headings = $(this).find('.headings > li');
+        //        tab_content = $(this).find('.tabs.content > li');
+        //        tab_content.first().addClass('active');
+        //        tab_headings.first().addClass('active');
+        //        return tab_headings.on('click', function () {
+        //            tab_headings.removeClass('active');
+        //            tab_content.removeClass('active');
+        //            $(this).addClass('active');
+        //            return tab_content.eq($(this).index()).addClass('active');
+        //        });
+        //    });
+
+//            $(function() {
+//     $("#accordion").accordion();
+//   });
+    </script>
+</body>
+
+</html>
